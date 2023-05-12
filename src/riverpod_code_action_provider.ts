@@ -11,8 +11,6 @@ export class RiverpodCodeActionProvider implements vscode.CodeActionProvider {
     context: vscode.CodeActionContext,
     token: vscode.CancellationToken
   ): vscode.ProviderResult<(vscode.CodeAction | vscode.Command)[]> {
-    console.log("provideCodeActions called");
-
     const actions: vscode.CodeAction[] = [];
 
     const documentTextArray = document.getText().split(/\r?\n/g);
