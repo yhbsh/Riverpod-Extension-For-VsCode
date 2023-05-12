@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
-import { getConsumerWidgetSnippet } from "./snippets/get_consumer_widget_snippet";
-import { getHookConsumerWidgetSnippet } from "./snippets/get_hook_consumer_widget_snippet";
-import { getHookWidgetSnippet } from "./snippets/get_hook_widget_snippet";
+import { getConsumerWidgetSnippet } from "../snippets/get_consumer_widget_snippet";
+import { getHookConsumerWidgetSnippet } from "../snippets/get_hook_consumer_widget_snippet";
+import { getHookWidgetSnippet } from "../snippets/get_hook_widget_snippet";
 
 export class RiverpodCodeCompletionItemProvider implements vscode.CompletionItemProvider {
   provideCompletionItems(

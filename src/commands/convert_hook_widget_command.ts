@@ -1,10 +1,11 @@
 import * as vscode from "vscode";
-import { replaceLine } from "./functions/replace_line";
-import { indexFrom } from "./functions/index_from";
+import { insertImportStatement } from "../functions/insert_import_statement";
+import { replaceLine } from "../functions/replace_line";
+import { indexFrom } from "../functions/index_from";
 
-export const convertStatelessWidgetCommandName = "extension.convert-stateless-widget";
+export const convertHookWidgetCommandName = "extension.convert-hook-widget";
 
-export function convertStatelessWidgetCommandHandler(
+export function convertHookWidgetCommandHandler(
   document: vscode.TextDocument,
   range: vscode.Range
 ) {
@@ -27,7 +28,7 @@ export function convertStatelessWidgetCommandHandler(
   ) as RegExpMatchArray;
 
   const className = widgetClassDefinitionLineMatch[1];
-  const statelessWidgetLineText = `class ${className} extends StatelessWidget {`;
+  const hookWidgetLineText = `class ${className} extends HookWidget {`;
 
   const buildMethodRegex = new RegExp(/Widget\s+build\((.*?)\)/);
   const buildMethodLineNumber = indexFrom(
@@ -48,7 +49,13 @@ export function convertStatelessWidgetCommandHandler(
 
   const edit = new vscode.WorkspaceEdit();
 
-  replaceLine(edit, document, widgetClassDefinitionLineRange, statelessWidgetLineText);
+  insertImportStatement(
+    edit,
+    document,
+    documentTextArray,
+    "import 'package:flutter_hooks/flutter_hooks.dart';"
+  );
+  replaceLine(edit, document, widgetClassDefinitionLineRange, hookWidgetLineText);
   replaceLine(edit, document, buildMethodLineRange, refBuildMethodLineText);
 
   vscode.workspace.applyEdit(edit);

@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
-import { convertConsumerWidgetCommandName } from "./convert_consumer_widget_command";
-import { convertHookConsumerWidgetCommandName } from "./convert_hook_consumer_widget_command";
-import { convertHookWidgetCommandName } from "./convert_hook_widget_command";
-import { convertStatelessWidgetCommandName } from "./convert_stateless_widget_command";
+import { convertConsumerWidgetCommandName } from "../commands/convert_consumer_widget_command";
+import { convertHookConsumerWidgetCommandName } from "../commands/convert_hook_consumer_widget_command";
+import { convertHookWidgetCommandName } from "../commands/convert_hook_widget_command";
+import { convertStatelessWidgetCommandName } from "../commands/convert_stateless_widget_command";
 
 export class RiverpodCodeActionProvider implements vscode.CodeActionProvider {
   provideCodeActions(

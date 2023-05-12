@@ -1,12 +1,11 @@
 import * as vscode from "vscode";
-import { insertImportStatement } from "./functions/insert_import_statement";
-import { replaceLine } from "./functions/replace_line";
-import { indexFrom } from "./functions/index_from";
+import { insertImportStatement } from "../functions/insert_import_statement";
+import { replaceLine } from "../functions/replace_line";
+import { indexFrom } from "../functions/index_from";
 
-export const convertHookConsumerWidgetCommandName =
-  "extension.convert-hook-consumer-widget";
+export const convertConsumerWidgetCommandName = "extension.convert-consumer-widget";
 
-export function convertHookConsumerWidgetCommandHandler(
+export function convertConsumerWidgetCommandHandler(
   document: vscode.TextDocument,
   range: vscode.Range
 ) {
@@ -31,8 +30,9 @@ export function convertHookConsumerWidgetCommandHandler(
 
   const className = widgetClassDefinitionLineMatch[1];
 
-  const hookConsumerWidgetLineText = `class ${className} extends HookConsumerWidget {`;
+  const consumerWidgetLineText = `class ${className} extends ConsumerWidget {`;
 
+  // Replace the build method with the ConsumerWidget version
   const buildMethodRegex = new RegExp(/Widget\s+build\((.*?)\)/);
   const buildMethodLineNumber = indexFrom(
     documentTextArray,
@@ -45,7 +45,7 @@ export function convertHookConsumerWidgetCommandHandler(
     new vscode.Position(buildMethodLineNumber, buildMethodLineText.length)
   );
 
-  const refBuildMethodLineText = buildMethodLineText.replace(
+  const consumerWidgetBuildMethodLineText = buildMethodLineText.replace(
     buildMethodRegex,
     "Widget build(BuildContext context, WidgetRef ref)"
   );
@@ -56,10 +56,10 @@ export function convertHookConsumerWidgetCommandHandler(
     edit,
     document,
     documentTextArray,
-    "import 'package:hooks_riverpod/hooks_riverpod.dart';"
+    "import 'package:flutter_riverpod/flutter_riverpod.dart';"
   );
-  replaceLine(edit, document, widgetClassDefinitionLineRange, hookConsumerWidgetLineText);
-  replaceLine(edit, document, buildMethodLineRange, refBuildMethodLineText);
+  replaceLine(edit, document, widgetClassDefinitionLineRange, consumerWidgetLineText);
+  replaceLine(edit, document, buildMethodLineRange, consumerWidgetBuildMethodLineText);
 
   vscode.workspace.applyEdit(edit);
 }
