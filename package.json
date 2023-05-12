@@ -2,7 +2,7 @@
   "name": "riverpod",
   "displayName": "riverpod",
   "description": "A riverpod extension",
-  "publisher": "Houssem",
+  "publisher": "HoussemBousmaha",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.78.0"
@@ -13,7 +13,9 @@
   "activationEvents": [
     "onLanguage:dart"
   ],
-  "repository": {},
+  "repository": {
+    "url": "https://github.com/HoussemBousmaha/riverpod-vscode-extension"
+  },
   "main": "./out/extension.js",
   "contributes": {},
   "scripts": {
