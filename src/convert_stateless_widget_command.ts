@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { replaceLine } from "./functions/replace_line";
-import { indexFrom } from "./functions/index_starting_from";
+import { indexFrom } from "./functions/index_from";
 
 export const convertStatelessWidgetCommandName = "extension.convert-stateless-widget";
 

@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import { insertImportStatement } from "./functions/insert_import_statement";
 import { replaceLine } from "./functions/replace_line";
-import { indexFrom } from "./functions/index_starting_from";
+import { indexFrom } from "./functions/index_from";
 
 export const convertHookWidgetCommandName = "extension.convert-hook-widget";
 
