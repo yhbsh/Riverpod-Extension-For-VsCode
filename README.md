@@ -4,7 +4,9 @@
 
 flutter riverpod extension is an extension that offers flutter_riverpod related code actions and snippets to increase productivity and make development easier.
 
-![](videos/showcase.mov)
+<video width="320" height="240" controls>
+  <source src="videos/showcase.mov" type="video/mp4">
+</video>
 
 ## Snippets
 
