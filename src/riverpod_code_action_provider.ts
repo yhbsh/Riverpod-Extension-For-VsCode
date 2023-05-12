@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { convertConsumerWidgetCommandName } from "./convert_consumer_widget_command";
 import { convertHookConsumerWidgetCommandName } from "./convert_hook_consumer_widget_command";
 import { convertHookWidgetCommandName } from "./convert_hook_widget_command";
+import { convertStatelessWidgetCommandName } from "./convert_stateless_widget_command";
 
 export class RiverpodCodeActionProvider implements vscode.CodeActionProvider {
   provideCodeActions(
@@ -20,10 +21,22 @@ export class RiverpodCodeActionProvider implements vscode.CodeActionProvider {
     const consumerWidgetRegex = new RegExp(/class\s\w+\sextends\sConsumerWidget/);
     const hookConsumerWidgetRegex = new RegExp(/class\s\w+\sextends\sHookConsumerWidget/);
     const hookWidgetRegex = new RegExp(/class\s\w+\sextends\sHookWidget/);
-    const isSelectedLineClassDefinition = classDefinitionRegex.test(documentTextArray[range.start.line]);
-    const isSelectedLineConsumerWidget = consumerWidgetRegex.test(documentTextArray[range.start.line]);
-    const isSelectedLineHookConsumerWidget = hookConsumerWidgetRegex.test(documentTextArray[range.start.line]);
-    const isSelectedLineHookWidget = hookWidgetRegex.test(documentTextArray[range.start.line]);
+    const statelessWidgetRegex = new RegExp(/class\s\w+\sextends\sStatelessWidget/);
+    const isSelectedLineClassDefinition = classDefinitionRegex.test(
+      documentTextArray[range.start.line]
+    );
+    const isSelectedLineConsumerWidget = consumerWidgetRegex.test(
+      documentTextArray[range.start.line]
+    );
+    const isSelectedLineHookConsumerWidget = hookConsumerWidgetRegex.test(
+      documentTextArray[range.start.line]
+    );
+    const isSelectedLineHookWidget = hookWidgetRegex.test(
+      documentTextArray[range.start.line]
+    );
+    const isSelectedLineStatelessWidget = statelessWidgetRegex.test(
+      documentTextArray[range.start.line]
+    );
 
     if (isSelectedLineClassDefinition && !isSelectedLineConsumerWidget) {
       registerConvertConsumerWidgetCodeAction(document, range, actions);
@@ -37,6 +50,10 @@ export class RiverpodCodeActionProvider implements vscode.CodeActionProvider {
       registerConvertHookWidgetCodeAction(document, range, actions);
     }
 
+    if (isSelectedLineClassDefinition && !isSelectedLineStatelessWidget) {
+      registerConvertStatelessWidgetCodeAction(document, range, actions);
+    }
+
     return actions;
   }
 
@@ -46,6 +63,25 @@ export class RiverpodCodeActionProvider implements vscode.CodeActionProvider {
   ): vscode.ProviderResult<vscode.CodeAction> {
     return codeAction;
   }
+}
+
+function registerConvertStatelessWidgetCodeAction(
+  document: vscode.TextDocument,
+  range: vscode.Range | vscode.Selection,
+  actions: vscode.CodeAction[]
+) {
+  const convertStatelessWidgetCodeAction = new vscode.CodeAction(
+    "Convert to StatelessWidget",
+    vscode.CodeActionKind.RefactorRewrite
+  );
+
+  convertStatelessWidgetCodeAction.command = {
+    title: "Convert HookWidget to StatelessWidget",
+    command: convertStatelessWidgetCommandName,
+    arguments: [document, range],
+  };
+
+  actions.push(convertStatelessWidgetCodeAction);
 }
 
 function registerConvertHookWidgetCodeAction(

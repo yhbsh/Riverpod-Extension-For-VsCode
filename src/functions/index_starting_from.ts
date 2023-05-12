@@ -1,4 +1,8 @@
-export function indexOfStartingFrom(documentTextArray: string[], regex: RegExp, startingFrom: number) {
+export function indexFrom(
+  documentTextArray: string[],
+  regex: RegExp,
+  startingFrom: number
+) {
   for (let i = startingFrom; i < documentTextArray.length; i++) {
     if (regex.test(documentTextArray[i])) {
       return i;
