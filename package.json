@@ -1,9 +1,9 @@
 {
   "name": "riverpod",
-  "displayName": "riverpod",
+  "displayName": "The Riverpod Extension",
   "description": "A riverpod extension",
   "publisher": "HoussemBousmaha",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "engines": {
     "vscode": "^1.78.0"
   },
