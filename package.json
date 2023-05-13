@@ -3,7 +3,7 @@
   "displayName": "riverpod",
   "description": "A riverpod extension",
   "publisher": "HoussemBousmaha",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.78.0"
   },
